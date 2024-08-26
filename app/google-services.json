@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "630296034795",
+    "project_id": "dating-app-31634",
+    "storage_bucket": "dating-app-31634.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630296034795:android:fa3c0b107ef3c426682dae",
+        "android_client_info": {
+          "package_name": "com.prabhakar.datingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYL2GOzL8BNOwrGcRXE99Ea628K7SxHd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
