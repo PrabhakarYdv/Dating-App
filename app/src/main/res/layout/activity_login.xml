@@ -94,6 +94,17 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/changeNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="Change Number"
+                android:textSize="15dp"
+                android:visibility="gone" />
+
+
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
