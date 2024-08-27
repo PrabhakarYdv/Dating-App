@@ -1,14 +1,21 @@
 package com.prabhakar.datingapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.prabhakar.datingapp.R
 import com.prabhakar.datingapp.Utils
 import com.prabhakar.datingapp.databinding.ActivityLoginBinding
+import com.prabhakar.datingapp.model.UserModel
+import com.prabhakar.datingapp.viewmodel.AuthViewModel
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +32,8 @@ class LoginActivity : AppCompatActivity() {
                 binding.btnSendOTP.visibility = View.GONE
                 binding.bntVerifyOTP.visibility = View.VISIBLE
                 binding.changeNumber.visibility = View.VISIBLE
+
+                sendOTP(binding.userNumber.toString())
             }
         }
 
@@ -35,6 +44,47 @@ class LoginActivity : AppCompatActivity() {
             binding.changeNumber.visibility = View.GONE
 
             binding.userNumber.requestFocus()
+        }
+
+        binding.bntVerifyOTP.setOnClickListener {
+            verifyOTP(binding.userNumber.toString(), binding.otp.toString())
+        }
+    }
+
+    private fun sendOTP(userNumber: String) {
+        Utils.showDialog(this, "Sending OTP...")
+        authViewModel.sendOTP(userNumber, this)
+        lifecycleScope.launch {
+            authViewModel.exposeOtp.collect {
+                if (it) {
+                    Utils.hideDialog()
+                    Utils.showToast(this@LoginActivity, "OTP has been sent")
+                }
+            }
+        }
+    }
+
+
+    private fun verifyOTP(userNumber: String, otp: String) {
+        Utils.showDialog(this, "verifying")
+
+        val userModel = Utils.getUId()?.let {
+            UserModel(it, userNumber)
+        }
+
+        authViewModel.signInWithPhoneAuth(userNumber, otp, userModel)
+
+        lifecycleScope.launch {
+            authViewModel.exposeVerifyStatus.collect {
+                if (it) {
+                    Utils.hideDialog()
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                } else {
+                    Utils.hideDialog()
+                    Utils.showToast(this@LoginActivity, "Enter a valid OTP")
+                    binding.otp.error= "Incorrect OTP"
+                }
+            }
         }
     }
 }
