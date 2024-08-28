@@ -84,7 +84,6 @@ class LoginActivity : AppCompatActivity() {
                     Utils.hideDialog()
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                 } else {
-//                    Utils.hideDialog()
                     Utils.showToast(this@LoginActivity, "Enter a valid OTP")
                     binding.otp.error= "Incorrect OTP"
                 }
