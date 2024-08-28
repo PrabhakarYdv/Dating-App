@@ -47,7 +47,7 @@ class AuthViewModel : ViewModel() {
         }
 
         val option = PhoneAuthOptions.newBuilder(Utils.getFirebaseAuthInstance())
-            .setPhoneNumber("+91$userNumber")
+            .setPhoneNumber("+91${userNumber}")
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(activity)
             .setCallbacks(callback)

@@ -60,13 +60,17 @@ class LoginActivity : AppCompatActivity() {
                     Utils.hideDialog()
                     Utils.showToast(this@LoginActivity, "OTP has been sent")
                 }
+                else{
+
+                    Utils.showToast(this@LoginActivity,"Something went wrong")
+                }
             }
         }
     }
 
 
     private fun verifyOTP(userNumber: String, otp: String) {
-        Utils.showDialog(this, "verifying")
+        Utils.showDialog(this, "Verifying...")
 
         val userModel = Utils.getUId()?.let {
             UserModel(it, userNumber)
@@ -80,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                     Utils.hideDialog()
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                 } else {
-                    Utils.hideDialog()
+//                    Utils.hideDialog()
                     Utils.showToast(this@LoginActivity, "Enter a valid OTP")
                     binding.otp.error= "Incorrect OTP"
                 }
