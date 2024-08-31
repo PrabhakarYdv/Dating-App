@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.bntVerifyOTP.visibility = View.VISIBLE
                 binding.changeNumber.visibility = View.VISIBLE
 
-                sendOTP(binding.userNumber.toString())
+                sendOTP(binding.userNumber.text.toString())
             }
         }
 
@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.bntVerifyOTP.setOnClickListener {
-            verifyOTP(binding.userNumber.toString(), binding.otp.toString())
+            verifyOTP(binding.userNumber.text.toString(), binding.otp.text.toString())
         }
     }
 
@@ -61,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
                     Utils.showToast(this@LoginActivity, "OTP has been sent")
                 }
                 else{
-
                     Utils.showToast(this@LoginActivity,"Something went wrong")
                 }
             }
@@ -83,9 +82,10 @@ class LoginActivity : AppCompatActivity() {
                 if (it) {
                     Utils.hideDialog()
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    finish()
                 } else {
-                    Utils.showToast(this@LoginActivity, "Enter a valid OTP")
-                    binding.otp.error= "Incorrect OTP"
+//                    Utils.showToast(this@LoginActivity, "Enter a valid OTP")
+//                    binding.otp.error= "Incorrect OTP"
                 }
             }
         }
