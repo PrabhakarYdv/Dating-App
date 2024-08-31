@@ -11,13 +11,13 @@ import com.prabhakar.datingapp.databinding.ProgressBarBinding
 
 object Utils {
     fun showToast(context: Context, message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private var dialog: AlertDialog? = null
-    fun showDialog(context: Context, message: String) {
+    fun showDialog(context: Context, content: String) {
         val progressBar = ProgressBarBinding.inflate(LayoutInflater.from(context))
-        progressBar.message.text = message
+        progressBar.message.text = content
         dialog = AlertDialog.Builder(context)
             .setView(progressBar.root)
             .setCancelable(false)

@@ -59,9 +59,8 @@ class LoginActivity : AppCompatActivity() {
                 if (it) {
                     Utils.hideDialog()
                     Utils.showToast(this@LoginActivity, "OTP has been sent")
-                }
-                else{
-                    Utils.showToast(this@LoginActivity,"Something went wrong")
+                } else {
+                    Utils.showToast(this@LoginActivity, "Something went wrong")
                 }
             }
         }
@@ -81,8 +80,14 @@ class LoginActivity : AppCompatActivity() {
             authViewModel.exposeVerifyStatus.collect {
                 if (it) {
                     Utils.hideDialog()
-                    startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-                    finish()
+                    authViewModel.exposeUserRegisterStatus.collect { isUserRegister ->
+                        if (isUserRegister) {
+                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                        } else {
+                            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+                            finish()
+                        }
+                    }
                 } else {
 //                    Utils.showToast(this@LoginActivity, "Enter a valid OTP")
 //                    binding.otp.error= "Incorrect OTP"

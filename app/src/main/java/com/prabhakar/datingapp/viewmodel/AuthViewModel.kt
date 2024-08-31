@@ -1,12 +1,15 @@
 package com.prabhakar.datingapp.viewmodel
 
 import android.app.Activity
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import com.prabhakar.datingapp.Utils
 import com.prabhakar.datingapp.model.UserModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +23,12 @@ class AuthViewModel : ViewModel() {
     val exposeVerifyStatus = _isVerifySuccess
     private val _isCurrentUser = MutableStateFlow(false)
     val exposeCurrentUserStatus = _isCurrentUser
+    private val _isImageUpload = MutableStateFlow(false)
+    val exposeImageUploadStatus = _isImageUpload
+    private val _dataUpload = MutableStateFlow(false)
+    val exposeDataUploadStatus = _dataUpload
+    private val _isUserRegister = MutableStateFlow(false)
+    val exposeUserRegisterStatus = _isUserRegister
 
     init {
         Utils.getFirebaseAuthInstance().currentUser?.let {
@@ -70,6 +79,38 @@ class AuthViewModel : ViewModel() {
                 } else {
                     _isVerifySuccess.value = false
                 }
+            }
+    }
+
+    fun uploadImage(imageUri: Uri, userModel: UserModel?) {
+        val storageRef = FirebaseStorage.getInstance().getReference("Profile")
+            .child(Utils.getUId().toString())
+            .child(Utils.getFirebaseAuthInstance().currentUser?.phoneNumber!!)
+            .child("Profile.jpg")
+        storageRef.putFile(imageUri)
+            .addOnSuccessListener {
+                storageRef.downloadUrl.addOnSuccessListener {
+                    _isImageUpload.value = true
+//                    storeData(imageUri, userModel)
+                }
+            }
+    }
+
+    fun storeData(imageUri: Uri, userModel: UserModel?) {
+        userModel?.image = imageUri.toString()
+        FirebaseDatabase.getInstance().getReference("Users")
+            .child(FirebaseAuth.getInstance().currentUser?.phoneNumber!!)
+            .setValue(userModel)
+            .addOnCompleteListener {
+                _dataUpload.value = true
+                _isUserRegister.value = true
+            }.addOnSuccessListener {
+                _dataUpload.value = true
+                _isUserRegister.value = true
+            }
+            .addOnFailureListener {
+                _dataUpload.value = false
+                _isUserRegister.value = false
             }
     }
 }
