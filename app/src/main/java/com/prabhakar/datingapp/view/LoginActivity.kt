@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
             authViewModel.exposeVerifyStatus.collect {
                 if (it) {
                     Utils.hideDialog()
-                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
                     finish()
                 } else {
 //                    Utils.showToast(this@LoginActivity, "Enter a valid OTP")

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dating App</string>
+    <string name="tc">By clicking on that you are accepting our <font color="#860920">Terms &amp; Conditions</font></string>
 </resources>
