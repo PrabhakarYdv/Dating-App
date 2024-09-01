@@ -75,4 +75,7 @@ dependencies {
 //    Circle ImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
+//    CardStack View
+    implementation("com.github.yuyakaido:CardStackView:v2.3.4")
+
 }

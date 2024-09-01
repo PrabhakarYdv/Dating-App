@@ -72,7 +72,7 @@ class AuthViewModel : ViewModel() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     FirebaseDatabase.getInstance()
-                        .getReference("All Users")
+                        .getReference("Users")
                         .child("User").child(userModel?.uId.toString())
                         .setValue(userModel)
                     _isVerifySuccess.value = true
