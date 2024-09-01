@@ -1,4 +1,4 @@
-package com.prabhakar.datingapp.view
+package com.prabhakar.datingapp.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

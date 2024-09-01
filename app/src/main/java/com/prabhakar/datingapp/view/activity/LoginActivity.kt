@@ -1,4 +1,4 @@
-package com.prabhakar.datingapp.view
+package com.prabhakar.datingapp.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                     Utils.hideDialog()
                     Utils.showToast(this@LoginActivity, "OTP has been sent")
                 } else {
-                    Utils.showToast(this@LoginActivity, "Something went wrong")
+//                    Utils.showToast(this@LoginActivity, "Something went wrong")
                 }
             }
         }
