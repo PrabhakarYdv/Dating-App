@@ -14,7 +14,7 @@ import com.prabhakar.datingapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityHomeBinding
-    private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +26,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navController = findNavController(R.id.fragmentContainerView)
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
 
-        actionBarDrawerToggle =
-            ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
 
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle!!)
-        actionBarDrawerToggle!!.syncState()
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBarDrawerToggle?.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navigationView.setNavigationItemSelectedListener(this)
 
     }
