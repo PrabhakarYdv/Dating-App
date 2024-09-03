@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -73,7 +74,10 @@ class DatingFragment : Fragment() {
                     if (snapshot.exists()) {
                         for (data in snapshot.children) {
                             val model = data.getValue(UserModel::class.java)
-                            usersList.add(model!!)
+                            if (model?.uId!=FirebaseAuth.getInstance().currentUser?.uid && model!=null){
+                                usersList.add(model!!)
+                            }
+
                         }
                         usersList.shuffle()
                         init()

@@ -9,7 +9,7 @@ class DatingViewHolder(private val binding: ItemUserLayoutBinding) : RecyclerVie
     fun setData(model: UserModel) {
         binding.apply {
             name.text = model.userName
-            email.text = model.userEmail
+            city.text = model.city
 
             Glide.with(userImage).load(model.image).into(userImage)
         }

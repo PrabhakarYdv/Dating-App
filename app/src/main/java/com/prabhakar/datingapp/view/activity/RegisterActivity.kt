@@ -62,6 +62,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun uploadData() {
         Utils.showDialog(this, "Uploading image ...")
         val userModel = UserModel(
+            uId = Utils.getUId(),
             image = imageUri.toString(),
             userName = binding.userName.text.toString(),
             userEmail = binding.userEmail.text.toString(),
