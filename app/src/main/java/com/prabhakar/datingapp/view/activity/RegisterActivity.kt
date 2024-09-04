@@ -73,7 +73,7 @@ class RegisterActivity : AppCompatActivity() {
             authViewModel.exposeImageUploadStatus.collect {
                 if (it) {
                     Utils.hideDialog()
-                    Utils.showToast(applicationContext, "Image Uploaded")
+//                    Utils.showToast(applicationContext, "Image Uploaded")
                 }
             }
         }

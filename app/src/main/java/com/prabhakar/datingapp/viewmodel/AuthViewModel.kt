@@ -100,7 +100,7 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    fun storeData(imageUri: Uri, userModel: UserModel?) {
+    private fun storeData(imageUri: Uri, userModel: UserModel?) {
         userModel?.image = imageUri.toString()
         FirebaseDatabase.getInstance().getReference("Users")
             .child(FirebaseAuth.getInstance().currentUser?.phoneNumber!!)

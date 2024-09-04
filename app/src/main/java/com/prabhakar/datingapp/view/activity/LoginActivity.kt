@@ -112,6 +112,7 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     } else {
                         startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+                        finish()
                     }
                 }
 
