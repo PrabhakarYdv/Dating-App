@@ -2,6 +2,7 @@ package com.prabhakar.datingapp.viewmodel
 
 import android.app.Activity
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -73,7 +74,7 @@ class AuthViewModel : ViewModel() {
                 if (it.isSuccessful) {
                     FirebaseDatabase.getInstance()
                         .getReference("Users")
-                        .child("User").child(userModel?.uId.toString())
+                        .child("User").child(userModel?.uid.toString())
                         .setValue(userModel)
                     _isVerifySuccess.value = true
                 } else {
@@ -90,6 +91,9 @@ class AuthViewModel : ViewModel() {
         storageRef.putFile(imageUri)
             .addOnSuccessListener {
                 storageRef.downloadUrl.addOnSuccessListener {
+                    storeData(it,userModel)
+                    Log.d("URL",it.toString())
+
                     _isImageUpload.value = true
 //                    storeData(imageUri, userModel)
                 }

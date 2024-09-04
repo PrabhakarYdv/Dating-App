@@ -1,7 +1,7 @@
 package com.prabhakar.datingapp.model
 
 data class UserModel(
-    val uId: String?="",
+    val uid: String?="",
     var userNumber: String?="",
     val userName: String?="",
     val userEmail: String?="",

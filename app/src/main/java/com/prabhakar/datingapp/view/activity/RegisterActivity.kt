@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun uploadData() {
         Utils.showDialog(this, "Uploading image ...")
         val userModel = UserModel(
-            uId = Utils.getUId(),
+            uid  = Utils.getUId(),
             image = imageUri.toString(),
             userName = binding.userName.text.toString(),
             userEmail = binding.userEmail.text.toString(),
@@ -80,7 +80,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-        authViewModel.storeData(imageUri!!, userModel)
+//        authViewModel.storeData(imageUri!!, userModel)
         Utils.showDialog(this, "Registering...")
         lifecycleScope.launch {
             authViewModel.exposeDataUploadStatus.collect {

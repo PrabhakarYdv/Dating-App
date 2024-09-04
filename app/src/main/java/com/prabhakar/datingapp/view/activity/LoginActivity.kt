@@ -6,6 +6,10 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.prabhakar.datingapp.R
 import com.prabhakar.datingapp.Utils
 import com.prabhakar.datingapp.databinding.ActivityLoginBinding
@@ -80,19 +84,42 @@ class LoginActivity : AppCompatActivity() {
             authViewModel.exposeVerifyStatus.collect {
                 if (it) {
                     Utils.hideDialog()
-                    authViewModel.exposeUserRegisterStatus.collect { isUserRegister ->
-                        if (isUserRegister) {
-                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
-                        } else {
-                            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-                            finish()
-                        }
-                    }
+                    checkUserExit(userNumber)
+//                    authViewModel.exposeUserRegisterStatus.collect { isUserRegister ->
+//                        if (isUserRegister) {
+//                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+//                        } else {
+//                            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+//                            finish()
+//                        }
+//                    }
                 } else {
 //                    Utils.showToast(this@LoginActivity, "Enter a valid OTP")
 //                    binding.otp.error= "Incorrect OTP"
                 }
             }
         }
+    }
+
+    private fun checkUserExit(userNumber: String?) {
+        FirebaseDatabase.getInstance().getReference("Users")
+            .child("+91$userNumber")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    Utils.hideDialog()
+                    if (snapshot.exists()) {
+                        startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                        finish()
+                    } else {
+                        startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Utils.hideDialog()
+                    Utils.showToast(this@LoginActivity, "${error.message}")
+                }
+
+            })
     }
 }

@@ -42,8 +42,8 @@ class DatingFragment : Fragment() {
                 }
 
                 override fun onCardSwiped(direction: Direction?) {
-                    if (cardStackLayoutManager?.topPosition==usersList.size){
-                        Utils.showToast(requireContext(),"This is the last card")
+                    if (cardStackLayoutManager?.topPosition == usersList.size) {
+                        Utils.showToast(requireContext(), "This is the last card")
                     }
                 }
 
@@ -74,15 +74,15 @@ class DatingFragment : Fragment() {
                     if (snapshot.exists()) {
                         for (data in snapshot.children) {
                             val model = data.getValue(UserModel::class.java)
-                            if (model?.uId!=FirebaseAuth.getInstance().currentUser?.uid && model!=null){
-                                usersList.add(model!!)
+                            if (model?.uid != FirebaseAuth.getInstance().currentUser?.uid && model != null) {
+                                usersList.add(model)
                             }
 
                         }
                         usersList.shuffle()
                         init()
-                        binding.cardStackView.layoutManager=cardStackLayoutManager
-                        binding.cardStackView.itemAnimator=DefaultItemAnimator()
+                        binding.cardStackView.layoutManager = cardStackLayoutManager
+                        binding.cardStackView.itemAnimator = DefaultItemAnimator()
                         binding.cardStackView.adapter = DatingAdapter(usersList)
                     }
                 }
