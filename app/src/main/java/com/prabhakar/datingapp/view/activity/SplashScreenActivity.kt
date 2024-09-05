@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (FirebaseAuth.getInstance().currentUser != null) {
                 checkUserExit(FirebaseAuth.getInstance().currentUser?.phoneNumber!!)
+                Log.d("auth 35",FirebaseAuth.getInstance().currentUser?.phoneNumber!!)
 
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
@@ -41,10 +43,11 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun checkUserExit(userNumber: String) {
         FirebaseDatabase.getInstance().getReference("Users")
-            .child("+91$userNumber")
+            .child(userNumber)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()){
+                        Log.d("auth 51",snapshot.key.toString())
                         startActivity(Intent(this@SplashScreenActivity,HomeActivity::class.java))
                         finish()
                     }
@@ -56,6 +59,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    Log.d("auth",error.message)
                 }
 
             })
