@@ -1,5 +1,6 @@
 package com.prabhakar.datingapp.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.prabhakar.datingapp.R
 import com.prabhakar.datingapp.Utils
 import com.prabhakar.datingapp.databinding.FragmentProfileBinding
 import com.prabhakar.datingapp.model.UserModel
+import com.prabhakar.datingapp.view.activity.LoginActivity
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -24,7 +26,17 @@ class ProfileFragment : Fragment() {
         Utils.showDialog(requireContext(), "Loading Profile")
         setData()
 
+        binding.btnLogout.setOnClickListener {
+            Utils.showDialog(requireContext(),"Logging Out...")
+            Utils.getFirebaseAuthInstance().signOut()
+            Utils.hideDialog()
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
+        }
+
         return binding.root
+
+
     }
 
     private fun setData() {
@@ -36,7 +48,7 @@ class ProfileFragment : Fragment() {
                     binding.apply {
                         userName.setText(data?.userName)
                         userEmail.setText(data?.userEmail)
-                        userNumber.setText(data?.userNumber)
+                        userNumber.setText(FirebaseAuth.getInstance().currentUser?.phoneNumber!!)
                         userCity.setText(data?.city)
 
                         Glide.with(userImage).load(data?.image).placeholder(R.drawable.avatar)
