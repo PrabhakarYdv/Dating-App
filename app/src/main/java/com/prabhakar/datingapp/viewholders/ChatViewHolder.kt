@@ -6,14 +6,14 @@ import com.prabhakar.datingapp.R
 import com.prabhakar.datingapp.databinding.ChatLayoutBinding
 import com.prabhakar.datingapp.model.UserModel
 
-class ChatViewHolder(private val binding: ChatLayoutBinding) :
+class ChatViewHolder( val binding: ChatLayoutBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun setData(model: UserModel) {
+    fun setData(model: String) {
         binding.apply {
-            userName.text = model.userName
-
-            Glide.with(userImage).load(model.image).placeholder(R.drawable.avatar).into(userImage)
+//            userName.text = model.userName
+//
+//            Glide.with(userImage).load(model.image).placeholder(R.drawable.avatar).into(userImage)
         }
     }
 }

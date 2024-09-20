@@ -1,6 +1,7 @@
 package com.prabhakar.datingapp.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.prabhakar.datingapp.R
@@ -27,8 +28,8 @@ class MessageActivity : AppCompatActivity() {
 
     private fun sendMessage(message: String) {
         val senderId = Utils.getFirebaseAuthInstance().currentUser?.phoneNumber
-        val receiverId = intent.getStringExtra("userNumber")
-        val chatId = senderId+receiverId
+        val receiverId = intent?.getStringExtra("userNumber")
+        val chatId:String = senderId+receiverId
 
         val chatMap = hashMapOf<String, String>()
         chatMap["message"] = message

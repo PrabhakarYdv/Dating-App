@@ -66,7 +66,8 @@ class RegisterActivity : AppCompatActivity() {
             image = imageUri.toString(),
             userName = binding.userName.text.toString(),
             userEmail = binding.userEmail.text.toString(),
-            city = binding.userCity.text.toString()
+            city = binding.userCity.text.toString(),
+            userNumber = Utils.getFirebaseAuthInstance().currentUser?.phoneNumber
         )
         authViewModel.uploadImage(imageUri!!, userModel)
         lifecycleScope.launch {
