@@ -27,7 +27,7 @@ class MessageFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        adapter = ChatAdapter(DatingFragment.usersList)
+        adapter = ChatAdapter(DatingFragment.usersList!!)
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.chatRecyclerView.adapter = adapter
     }
