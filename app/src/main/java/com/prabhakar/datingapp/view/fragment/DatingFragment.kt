@@ -22,7 +22,9 @@ import com.yuyakaido.android.cardstackview.Direction
 class DatingFragment : Fragment() {
     private lateinit var binding: FragmentDatingBinding
     private lateinit var cardStackLayoutManager: CardStackLayoutManager
-    private val usersList = arrayListOf<UserModel>()
+    companion object{
+        var usersList = arrayListOf<UserModel>()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
