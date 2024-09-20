@@ -33,6 +33,8 @@ class DatingFragment : Fragment() {
         binding = FragmentDatingBinding.inflate(layoutInflater)
 
         getData()
+
+        binding
         return binding.root
     }
 
@@ -86,7 +88,7 @@ class DatingFragment : Fragment() {
                         init()
                         binding.cardStackView.layoutManager = cardStackLayoutManager
                         binding.cardStackView.itemAnimator = DefaultItemAnimator()
-                        binding.cardStackView.adapter = DatingAdapter(usersList!!)
+                        binding.cardStackView.adapter = DatingAdapter(usersList!!,requireContext())
                     }
                 }
 
